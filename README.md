@@ -39,4 +39,4 @@ Konfiguration includes the following config entry types:
 - ListConfigEntry
 - StringConfigEntry
 
-More types can be added with ease by extending ConfigEntry and overriding the Constructor as well as `ConfigEntry#parseValue()`.
+More types can be added with ease by extending ConfigEntry and overriding the Constructor as well as `ConfigEntry#parseValue()` and `ConfigEntry#getType`.
