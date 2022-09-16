@@ -1,0 +1,77 @@
+apply plugin: 'java-library'
+apply plugin: 'java'
+
+libsDirName = System.getenv("libsDirName") == null ? libsDirName : System.getenv("libsDirName")
+compileJava.options.encoding = 'UTF-8'
+
+version = "1.0.0-RELEASE"
+
+sourceSets {
+    main {
+        java {
+            srcDirs 'src'
+        }
+
+        resources {
+            srcDirs 'resources'
+        }
+    }
+}
+
+repositories {
+	mavenCentral()
+	jcenter()
+	
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+configurations {
+    internalLibs
+    implementation.extendsFrom(internalLibs)
+}
+
+dependencies {
+
+    // MiniMessages
+    this.addModularCompile('net.kyori:adventure-text-minimessage:4.11.0', 'minimessages', false)
+	
+	// Configurate GSON
+	this.addModularCompile('org.spongepowered:configurate-gson:4.1.2', 'configurate-gson', false)
+
+    // Local libs
+    compileOnly fileTree(dir: 'libs', include: '*.jar')
+}
+
+boolean checkLib(String filePath) {
+    return file('libs/' + filePath + '.jar').exists()
+}
+
+void addModularCompile(String repoName, String fileName, boolean changingB) {
+    if (this.checkLib(fileName))
+        this.dependencies.implementation name: fileName
+    else
+        this.dependencies.implementation (repoName) { changing = changingB }
+}
+
+void addModularInternal(String repoName, String fileName, boolean changingB) {
+    if (this.checkLib(fileName))
+        this.dependencies.internalLibs name: fileName
+    else
+        this.dependencies.internalLibs (repoName) { changing = changingB }
+}
+
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from {
+        configurations.internalLibs.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+}
+
+processResources {
+	duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    from (sourceSets.main.resources.srcDirs) {}
+}
