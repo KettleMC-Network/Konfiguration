@@ -1,7 +1,5 @@
 package net.kettlemc.konfiguration;
 
-import com.sun.org.slf4j.internal.Logger;
-import com.sun.org.slf4j.internal.LoggerFactory;
 import io.leangen.geantyref.TypeToken;
 import org.spongepowered.configurate.ConfigurationNode;
 import org.spongepowered.configurate.gson.GsonConfigurationLoader;
@@ -10,12 +8,14 @@ import org.spongepowered.configurate.serialize.SerializationException;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Configuration {
 
     private static final int INDENT = 4;
 
-    public static final Logger LOGGER = LoggerFactory.getLogger(Configuration.class);
+    public static final Logger LOGGER = Logger.getLogger(Configuration.class.getSimpleName());
 
     private final Path path;
     private final GsonConfigurationLoader loader;
@@ -25,7 +25,7 @@ public class Configuration {
         this.path = path;
         this.loader = GsonConfigurationLoader.builder().path(path).indent(INDENT).build();
         if (!this.load()) {
-            LOGGER.error("Couldn't load " + getFileName());
+            LOGGER.log(Level.SEVERE, "Couldn't load " + getFileName());
         }
     }
 
@@ -36,12 +36,12 @@ public class Configuration {
     public boolean load() {
         File configFile = path.toFile();
         if (!configFile.exists()) {
-            LOGGER.debug("Creating Configuration file " + getFileName() + ".");
+            LOGGER.log(Level.INFO, "Creating Configuration file " + getFileName() + ".");
             try {
                 configFile.getParentFile().mkdirs();
                 configFile.createNewFile();
             } catch (IOException e) {
-                LOGGER.error("Couldn't load configuration " + getFileName() + ".");
+                LOGGER.log(Level.SEVERE, "Couldn't load configuration " + getFileName() + ".");
                 e.printStackTrace();
                 return false;
             }
@@ -50,7 +50,7 @@ public class Configuration {
             this.configurationRoot = loader.load();
             return true;
         } catch (IOException e) {
-            LOGGER.error("Couldn't load configuration " + getFileName() + ".");
+            LOGGER.log(Level.SEVERE, "Couldn't load configuration " + getFileName() + ".");
             e.printStackTrace();
             return false;
         }
@@ -70,14 +70,14 @@ public class Configuration {
      */
     public boolean save() {
         if (this.configurationRoot == null) {
-            LOGGER.error("Couldn't save configuration " + getFileName() + ": " + " Root Node hasn't been initialized.");
+            LOGGER.log(Level.SEVERE, "Couldn't save configuration " + getFileName() + ": " + " Root Node hasn't been initialized.");
             return false;
         }
         try {
             loader.save(this.configurationRoot);
             return true;
         } catch (IOException e) {
-            LOGGER.error("Couldn't save configuration " + getFileName() + ".");
+            LOGGER.log(Level.SEVERE, "Couldn't save configuration " + getFileName() + ".");
             e.printStackTrace();
             return false;
         }

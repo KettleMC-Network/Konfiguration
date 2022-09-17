@@ -6,6 +6,7 @@ import org.spongepowered.configurate.ConfigurationNode;
 import org.spongepowered.configurate.serialize.SerializationException;
 
 import java.util.Arrays;
+import java.util.logging.Level;
 
 public abstract class ConfigEntry<T> {
 
@@ -20,11 +21,11 @@ public abstract class ConfigEntry<T> {
 		this.defaultValue = defaultValue;
 		this.node = config.getNode(path);
 		if (this.node.virtual()) {
-			Configuration.LOGGER.debug("Creating config entry for " + Arrays.toString(path));
+			Configuration.LOGGER.log(Level.INFO, "Creating config entry for " + Arrays.toString(path));
 			try {
 				this.config.setValue(node, defaultValue);
 			} catch (SerializationException e) {
-				Configuration.LOGGER.error("Couldn't save value " + defaultValue + " as " + e.expectedType().getTypeName());
+				Configuration.LOGGER.log(Level.SEVERE, "Couldn't save value " + defaultValue + " as " + e.expectedType().getTypeName());
 				e.printStackTrace();
 			}
 			this.config.save();
@@ -51,7 +52,7 @@ public abstract class ConfigEntry<T> {
 		try {
 			return node.virtual() ? defaultValue : (T) config.getValue(node, getType());
 		} catch (SerializationException e) {
-			Configuration.LOGGER.error("Couldn't get value from node " + node.toString() + " (" + e.expectedType().getTypeName() + ").");
+			Configuration.LOGGER.log(Level.SEVERE, "Couldn't get value from node " + node.toString() + " (" + e.expectedType().getTypeName() + ").");
 			return defaultValue;
 		}
 	}
@@ -60,7 +61,7 @@ public abstract class ConfigEntry<T> {
 		try {
 			this.config.setValue(node, getValue());
 		} catch (SerializationException e) {
-			Configuration.LOGGER.error("Couldn't save value " + value + " as " + e.expectedType().getTypeName());
+			Configuration.LOGGER.log(Level.SEVERE, "Couldn't save value " + value + " as " + e.expectedType().getTypeName());
 			e.printStackTrace();
 		}
 	}
