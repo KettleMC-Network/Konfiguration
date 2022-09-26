@@ -41,7 +41,7 @@ dependencies {
     this.addModularCompile('net.kyori:adventure-text-minimessage:4.11.0', 'minimessages', false)
 	
 	// Configurate GSON
-	this.addModularCompile('org.spongepowered:configurate-gson:4.1.2', 'configurate-gson', false)
+	this.addModularInternal('org.spongepowered:configurate-gson:4.1.2', 'configurate-gson', false)
 
     // Local libs
     compileOnly fileTree(dir: 'libs', include: '*.jar')
