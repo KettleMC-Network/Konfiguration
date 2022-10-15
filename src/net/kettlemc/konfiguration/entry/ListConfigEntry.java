@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class ListConfigEntry<T> extends ConfigEntry<ArrayList<T>>{
 
-	public ListConfigEntry(Configuration config, ArrayList<T> defaultValue, String... path) {
+	public ListConfigEntry(Configuration config, ArrayList<T> defaultValue, String path) {
 		super(config, defaultValue, path);
 	}
 

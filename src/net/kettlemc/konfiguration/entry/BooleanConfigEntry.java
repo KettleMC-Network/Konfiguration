@@ -7,7 +7,7 @@ import net.kettlemc.konfiguration.Configuration;
 
 public class BooleanConfigEntry extends ConfigEntry<Boolean>{
 
-	public BooleanConfigEntry(Configuration config, Boolean defaultValue, String... path) {
+	public BooleanConfigEntry(Configuration config, Boolean defaultValue, String path) {
 		super(config, defaultValue, path);
 	}
 

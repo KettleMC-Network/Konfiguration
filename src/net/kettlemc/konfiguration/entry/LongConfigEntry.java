@@ -5,11 +5,11 @@ import net.kettlemc.konfiguration.Configuration;
 
 public class LongConfigEntry extends ConfigEntry<Long> {
 
-	public LongConfigEntry(Configuration config, Long defaultValue, String... path) {
+	public LongConfigEntry(Configuration config, Long defaultValue, String path) {
 		super(config, defaultValue, path);
 	}
 
-	public LongConfigEntry(Configuration config, String... path) {
+	public LongConfigEntry(Configuration config, String path) {
 		this(config, 0L, path);
 	}
 

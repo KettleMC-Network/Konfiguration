@@ -15,13 +15,13 @@ public abstract class ConfigEntry<T> {
 	protected final ConfigurationNode node;
 	protected T defaultValue;
 
-	public ConfigEntry(Configuration config, T defaultValue, String... path) {
+	public ConfigEntry(Configuration config, T defaultValue, String path) {
 		this.config = config;
-		this.path = path;
+		this.path = path.split(".");
 		this.defaultValue = defaultValue;
 		this.node = config.getNode(path);
 		if (this.node.virtual()) {
-			Configuration.LOGGER.log(Level.INFO, "Creating config entry for " + Arrays.toString(path));
+			Configuration.LOGGER.log(Level.INFO, "Creating config entry for '" + path + "'.");
 			try {
 				this.config.setValue(node, defaultValue);
 			} catch (SerializationException e) {

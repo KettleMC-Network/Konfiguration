@@ -5,7 +5,7 @@ import net.kettlemc.konfiguration.Configuration;
 
 public class StringConfigEntry extends ConfigEntry<String> {
 
-	public StringConfigEntry(Configuration config, String defaultValue, String... path) {
+	public StringConfigEntry(Configuration config, String defaultValue, String path) {
 		super(config, defaultValue, path);
 	}
 

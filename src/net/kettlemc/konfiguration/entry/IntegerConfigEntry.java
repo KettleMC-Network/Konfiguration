@@ -5,11 +5,11 @@ import net.kettlemc.konfiguration.Configuration;
 
 public class IntegerConfigEntry extends ConfigEntry<Integer> {
 
-	public IntegerConfigEntry(Configuration config, Integer defaultValue, String... path) {
+	public IntegerConfigEntry(Configuration config, Integer defaultValue, String path) {
 		super(config, defaultValue, path);
 	}
 
-	public IntegerConfigEntry(Configuration config, String... path) {
+	public IntegerConfigEntry(Configuration config, String path) {
 		this(config, 0, path);
 	}
 
