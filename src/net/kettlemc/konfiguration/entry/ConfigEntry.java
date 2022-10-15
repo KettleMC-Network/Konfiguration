@@ -12,6 +12,7 @@ public abstract class ConfigEntry<T> {
 
 	protected final Configuration config;
 	protected final String[] path;
+	protected final String pathString;
 	protected final ConfigurationNode node;
 	protected T defaultValue;
 
@@ -20,6 +21,7 @@ public abstract class ConfigEntry<T> {
 		this.path = path.split(".");
 		this.defaultValue = defaultValue;
 		this.node = config.getNode(path);
+		this.pathString = path;
 		if (this.node.virtual()) {
 			Configuration.LOGGER.log(Level.INFO, "Creating config entry for '" + path + "'.");
 			try {
