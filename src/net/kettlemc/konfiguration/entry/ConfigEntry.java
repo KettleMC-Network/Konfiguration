@@ -15,7 +15,7 @@ public abstract class ConfigEntry<T> {
 	protected final ConfigurationNode node;
 	protected T defaultValue;
 
-	ConfigEntry(Configuration config, T defaultValue, String... path) {
+	public ConfigEntry(Configuration config, T defaultValue, String... path) {
 		this.config = config;
 		this.path = path;
 		this.defaultValue = defaultValue;
