@@ -20,7 +20,7 @@ public abstract class ConfigEntry<T> {
 		this.config = config;
 		this.path = path.split(".");
 		this.defaultValue = defaultValue;
-		this.node = config.getNode(path);
+		this.node = config.getNode(this.path);
 		this.pathString = path;
 		if (this.node.virtual()) {
 			Configuration.LOGGER.log(Level.INFO, "Creating config entry for '" + path + "'.");
