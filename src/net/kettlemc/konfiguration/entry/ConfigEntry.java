@@ -18,12 +18,12 @@ public abstract class ConfigEntry<T> {
 
 	public ConfigEntry(Configuration config, T defaultValue, String path) {
 		this.config = config;
-		this.path = path.split(".");
+		this.path = path.split("\\.");
 		this.defaultValue = defaultValue;
 		this.node = config.getNode(this.path);
 		Configuration.LOGGER.log(Level.INFO, "Loading node '" + node + "' for path '" + path + "'.");
 		this.pathString = path;
-		if (this.node.virtual()) {
+		if (this.node.virtual() || this.node.isNull() || this.node.empty()) {
 			Configuration.LOGGER.log(Level.INFO, "Creating config entry for '" + path + "'.");
 			try {
 				this.config.setValue(node, defaultValue);
