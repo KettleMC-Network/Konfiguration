@@ -21,6 +21,7 @@ public abstract class ConfigEntry<T> {
 		this.path = path.split(".");
 		this.defaultValue = defaultValue;
 		this.node = config.getNode(this.path);
+		Configuration.LOGGER.log(Level.INFO, "Loading node '" + node + "' for path '" + path + "'.");
 		this.pathString = path;
 		if (this.node.virtual()) {
 			Configuration.LOGGER.log(Level.INFO, "Creating config entry for '" + path + "'.");
