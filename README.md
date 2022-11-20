@@ -17,7 +17,7 @@ public class ConfigHandler {
   private static final Configuration EXAMPLE_CONFIG = new Configuration(CONFIG_FOLDER.resolve(EXAMPLE_CONFIG_NAME));
 
   static {
-    DEFAULT_CONFIG.load();
+    EXAMPLE_CONFIG.load();
   }
 
   public static final StringConfigEntry EXAMPLE_STRING = new MessageConfigEntry(EXAMPLE_CONFIG, "EXAMPLE STRING", "an", "example", "path");
