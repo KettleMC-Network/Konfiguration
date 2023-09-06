@@ -1,3 +1,7 @@
+
+### ⚠ This project is outdated and archived as there are much more powerfull libraries doing basically the same (like [JASKL](https://github.com/Almighty-Satan/JASKL)).
+
+
 # 📑 Konfiguration
 A simple json configuration library based on 'Configurate' and 'MiniMessage'
 
